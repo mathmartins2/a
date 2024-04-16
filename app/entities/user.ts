@@ -17,14 +17,14 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare email: string
 
-  @column()
+  @column({ serializeAs: null })
   declare password: string
 
   static readonly accessTokens = DbAccessTokensProvider.forModel(User, {
     expiresIn: '30 days',
     prefix: 'oat_',
     table: 'auth_access_tokens',
-    type: 'auth_token',
+    type: 'jwt',
     tokenSecretLength: 40,
   })
 }
