@@ -39,7 +39,7 @@ As variáveis principais incluem configurações para conexão com o banco de da
 O projeto usa Docker Compose para rodar o MySQL. Para iniciar o banco de dados, execute:
 
 ```bash
-docker-compose up -d
+docker compose up -d (no windows use docker-compose up -d)
 ```
 
 Isso irá configurar e iniciar um contêiner MySQL com as configurações especificadas no arquivo `docker-compose.yml`.
