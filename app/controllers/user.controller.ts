@@ -12,7 +12,7 @@ export default class UserController {
   async store({ request, response }: HttpContext) {
     const validatedData = (await request.validateUsing(createUserValidator)) as CreateUserDto
     const user = await this.userService.createUser(validatedData)
-    return response.status(StatusCodes.OK).json(user)
+    return response.status(StatusCodes.CREATED).json(user)
   }
 
   async login({ request }: HttpContext) {

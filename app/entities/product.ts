@@ -9,7 +9,7 @@ export default class Product extends compose(BaseModel, SoftDeletes) {
   declare name: string
 
   @column()
-  declare price: number
+  declare price: string
 
   @column()
   declare quantity: number

@@ -17,60 +17,32 @@ import SellController from '#controllers/sell.controller'
 router.post('signup', [UserController, 'store'])
 router.post('login', [UserController, 'login'])
 
-router.post('customer', [CustomerController, 'store']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.get('customer', [CustomerController, 'index']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.get('customer/:id', [CustomerController, 'show']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.delete('customer/:id', [CustomerController, 'delete']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.put('customer/:id', [CustomerController, 'update']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
+router
+  .group(() => {
+    router
+      .group(() => {
+        router.post('/', [CustomerController, 'store'])
+        router.get('/', [CustomerController, 'index'])
+        router.get(':id', [CustomerController, 'show'])
+        router.delete(':id', [CustomerController, 'delete'])
+        router.put(':id', [CustomerController, 'update'])
+      })
+      .prefix('customer')
 
-router.post('product', [ProductController, 'store']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.delete('product/:id', [ProductController, 'delete']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.get('product/:id', [ProductController, 'show']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.patch('product/:id', [ProductController, 'update']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
-router.get('product', [ProductController, 'index']).use(
-  middleware.auth({
-    guards: ['api'],
-  })
-)
+    router
+      .group(() => {
+        router.post('/', [ProductController, 'store'])
+        router.get('/', [ProductController, 'index'])
+        router.get(':id', [ProductController, 'show'])
+        router.delete(':id', [ProductController, 'delete'])
+        router.put(':id', [ProductController, 'update'])
+      })
+      .prefix('product')
 
-router.post('sell', [SellController, 'store']).use(
-  middleware.auth({
-    guards: ['api'],
+    router
+      .group(() => {
+        router.post('/', [SellController, 'store'])
+      })
+      .prefix('sell')
   })
-)
+  .use(middleware.auth({ guards: ['api'] }))

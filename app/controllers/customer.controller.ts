@@ -5,6 +5,7 @@ import { CreateCustomerDto } from '../types/create-customer.js'
 import { createCustomerValidator } from '#validators/create-customer'
 import { UpdateCustomerDto } from '../types/update-customer.js'
 import { updateCustomerValidator } from '#validators/update-customer'
+import logger from '@adonisjs/core/services/logger'
 
 export default class CustomerController {
   private readonly customerService = new CustomerService()
@@ -13,8 +14,10 @@ export default class CustomerController {
     const validatedData = (await request.validateUsing(
       createCustomerValidator
     )) as CreateCustomerDto
-    const user = await this.customerService.createCustomer(validatedData)
-    return response.status(StatusCodes.OK).json(user)
+    logger.log('info', 'Creating customer with data: %j', validatedData)
+    const customer = await this.customerService.createCustomer(validatedData)
+    logger.log('info', 'Customer created with data: %j', customer)
+    return response.status(StatusCodes.CREATED).json(customer)
   }
 
   async index({ response }: HttpContext) {

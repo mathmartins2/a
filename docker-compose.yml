@@ -8,8 +8,6 @@ services:
       MYSQL_USER: usuario
       MYSQL_PASSWORD: senha
       MYSQL_ROOT_PASSWORD: senha_root
-    volumes:
-      - ./.data:/var/lib/mysql
     ports:
       - '3306:3306'
     restart: always
